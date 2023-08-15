@@ -36,6 +36,7 @@ def create_order(symbol, qty, side, type, time_in_force):
 def strategy(name):
   
     ### Strategy is mainly using exponential moving average upward break through as BUY, EMA/MACD downward break through as SELL.
+    ### Strategy is mainly on hour lines. You could also try minute lines, but note api limitations. 
 
     stock=name
     ds = yfinance.download(stock,period="7d",interval = "1h")
@@ -75,19 +76,20 @@ def strategy(name):
 ### This is the triggerly function
 
 def loopStrategy():
-  list=['SPY','QQQ','DIA']
+    list=['SPY','QQQ','DIA']
+    
+    ### Add error handling
   
-  ### Add error handling
-  
-  try:
-  for i in list:
-    strategy(i)
-  except Exception as ex:
-    template = "An exception of type {0} occurred. Arguments:\n{1!r}"
-    message = template.format(type(ex).__name__, ex.args)
-  else:
-    message = 'Status code:200'
-  return message
+    try:
+        for i in list:
+            strategy(i)
+    except Exception as ex:
+        template = "An exception of type {0} occurred. Arguments:\n{1!r}"
+        message = template.format(type(ex).__name__, ex.args)
+    else:
+        message = 'Status code:200'
+    
+    return message
 
 ### Note that until you fill the secrets, there will be errors. Also Note that account status may lead to errors. 
 ### Note the API has different possibilities to cause errors.
