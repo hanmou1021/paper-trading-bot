@@ -1,6 +1,6 @@
 # Function dependencies, for example:
 # package>=version
-
+# Note slackclient is different deployed on GCP
 
 requests>=2.27.1
 pandas>=1.2.4
