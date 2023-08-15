@@ -16,6 +16,9 @@ def SlackNotice(name):
     slack_token='slack-secret'
     client=slack.WebClient(token=slack_token)
     now = datetime.now()
+
+    ### Use this minute line dataframe if you want to do minute level trades
+    
     dscp=yfinance.download(stock,period="1hour",interval = "1m")
     current_price=str(dscp['Close'][-1])
     ds = yfinance.download(stock,period="7d",interval = "1h")
